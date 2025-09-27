@@ -3,3 +3,5 @@
 .venv/
 
 .mypy_cache/
+
+personas.json
