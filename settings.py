@@ -10,3 +10,5 @@ CHROMA_DB_PATH = "./notion_db" # Path to store ChromaDB data
 CHROMA_COLLECTION_NAME = "notion-knowledge-base"
 
 PERSONAS = json.loads(open("personas.json").read())
+
+GPT_MODEL = os.environ.get("GPT_MODEL", "gpt-4.1-nano") # Default to gpt-4.1-nano if not set
