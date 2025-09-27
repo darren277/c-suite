@@ -1,6 +1,10 @@
 import os
 import json
 
+import dotenv
+
+dotenv.load_dotenv()
+
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 SLACK_APP_TOKEN = os.environ.get("SLACK_APP_TOKEN")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
