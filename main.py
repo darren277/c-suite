@@ -44,12 +44,21 @@ def handle_app_mention_events(body, client, say, logger):
     # Clean the user query to remove the @mention
     clean_query = user_query.replace(f"<@{bot_user_id}>", "").strip()
 
+    print(f"[DEBUG] User query: {clean_query}")
+    print(f"[DEBUG] Using persona: {persona['name']}")
+    print(f"[DEBUG] System prompt: {persona['system_prompt']}")
+    print(f"[DEBUG] Channel ID: {channel_id}, Thread TS: {thread_ts}")
+    print(f"[DEBUG] Mentioned Users: {mentioned_users}")
+    print("-----")
+
     try:
         # Give a visual cue that the bot is thinking
         thinking_message = say(text=f"Thinking as the {persona['name']}...", thread_ts=thread_ts)
 
         # 2. Retrieve context with your RAG mechanism
         rag_context = retrieve_from_knowledge_base(clean_query)
+
+        print(f"[DEBUG] RAG Context: {rag_context}")
 
         # 3. Fetch conversation history
         history = client.conversations_history(channel=channel_id, limit=5)
@@ -78,6 +87,8 @@ def handle_app_mention_events(body, client, say, logger):
             messages=messages_for_api
         )
         api_response = response.choices[0].message.content
+
+        print(f"[DEBUG] API Response: {api_response}")
 
         # Update the "Thinking..." message with the final answer
         client.chat_update(
