@@ -1,6 +1,8 @@
 import chromadb
 import openai
-
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from settings import CHROMA_DB_PATH, CHROMA_COLLECTION_NAME, OPENAI_API_KEY
 
 # --- Initialization in your bot file ---

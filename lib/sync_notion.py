@@ -1,6 +1,9 @@
 import chromadb
 from notion_client import Client
 import openai
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from settings import CHROMA_COLLECTION_NAME, CHROMA_DB_PATH, NOTION_API_TOKEN, NOTION_DATABASE_ID, OPENAI_API_KEY
 
 
