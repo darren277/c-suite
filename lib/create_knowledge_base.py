@@ -29,28 +29,31 @@ def create_database_properties(notion, schema):
     properties = {}
     
     for prop_name, prop_config in db_config['properties'].items():
-        if prop_name == 'title':
-            properties[prop_name] = {
+        prop_type = prop_config['type']
+        prop_display_name = prop_config['name']
+        
+        if prop_type == 'title':
+            properties[prop_display_name] = {
                 "title": {}
             }
-        elif prop_config['type'] == 'select':
-            properties[prop_name] = {
+        elif prop_type == 'select':
+            properties[prop_display_name] = {
                 "select": {
                     "options": [{"name": option} for option in prop_config['options']]
                 }
             }
-        elif prop_config['type'] == 'multi_select':
-            properties[prop_name] = {
+        elif prop_type == 'multi_select':
+            properties[prop_display_name] = {
                 "multi_select": {
                     "options": [{"name": option} for option in prop_config['options']]
                 }
             }
-        elif prop_config['type'] == 'date':
-            properties[prop_name] = {
+        elif prop_type == 'date':
+            properties[prop_display_name] = {
                 "date": {}
             }
-        elif prop_config['type'] == 'url':
-            properties[prop_name] = {
+        elif prop_type == 'url':
+            properties[prop_display_name] = {
                 "url": {}
             }
     
@@ -65,8 +68,14 @@ def create_database(notion, schema):
         database = notion.databases.retrieve(database_id=NOTION_DOCUMENTATION_DB_ID)
         print(f"✅ Found existing database: {database['title'][0]['plain_text']}")
         
+        # Get current properties to see what exists
+        current_props = database.get('properties', {})
+        print(f"📋 Current properties: {list(current_props.keys())}")
+        
         # Update properties if needed
         properties = create_database_properties(notion, schema)
+        print(f"🔧 New properties to create: {list(properties.keys())}")
+        
         notion.databases.update(
             database_id=NOTION_DOCUMENTATION_DB_ID,
             properties=properties
@@ -83,7 +92,7 @@ def create_database(notion, schema):
 def create_page_content(notion, page_data, database_id):
     """Create a page in the Notion database"""
     
-    # Prepare properties
+    # Prepare properties - using the display names from the YAML schema
     properties = {
         "Title": {
             "title": [{"text": {"content": page_data['title']}}]
