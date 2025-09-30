@@ -8,6 +8,9 @@ import sys
 import os
 from datetime import datetime
 from notion_client import Client
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from settings import NOTION_API_TOKEN, NOTION_DOCUMENTATION_DB_ID
 
 # Add parent directory to path for imports
