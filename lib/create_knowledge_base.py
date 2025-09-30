@@ -8,7 +8,7 @@ import sys
 import os
 from datetime import datetime
 from notion_client import Client
-from settings import NOTION_API_TOKEN, NOTION_DATABASE_ID
+from settings import NOTION_API_TOKEN, NOTION_DOCUMENTATION_DB_ID
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -59,13 +59,13 @@ def create_database(notion, schema):
     
     try:
         # Try to get existing database
-        database = notion.databases.retrieve(database_id=NOTION_DATABASE_ID)
+        database = notion.databases.retrieve(database_id=NOTION_DOCUMENTATION_DB_ID)
         print(f"✅ Found existing database: {database['title'][0]['plain_text']}")
         
         # Update properties if needed
         properties = create_database_properties(notion, schema)
         notion.databases.update(
-            database_id=NOTION_DATABASE_ID,
+            database_id=NOTION_DOCUMENTATION_DB_ID,
             properties=properties
         )
         print("✅ Updated database properties")
@@ -74,8 +74,8 @@ def create_database(notion, schema):
         print(f"❌ Error accessing database: {e}")
         print("Please check your NOTION_DATABASE_ID in settings.py")
         return None
-    
-    return NOTION_DATABASE_ID
+
+    return NOTION_DOCUMENTATION_DB_ID
 
 def create_page_content(notion, page_data, database_id):
     """Create a page in the Notion database"""

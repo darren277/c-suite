@@ -16,3 +16,5 @@ CHROMA_COLLECTION_NAME = "notion-knowledge-base"
 PERSONAS = json.loads(open("personas.json").read())
 
 GPT_MODEL = os.environ.get("GPT_MODEL", "gpt-4.1-nano") # Default to gpt-4.1-nano if not set
+
+NOTION_DOCUMENTATION_DB_ID = os.environ.get("NOTION_DOCUMENTATION_DB_ID")
