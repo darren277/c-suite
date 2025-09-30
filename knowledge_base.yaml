@@ -1,0 +1,387 @@
+# Health Tech Startup Knowledge Base Schema
+# This file defines the structure and content of your company knowledge base
+# Run: python lib/create_knowledge_base.py to sync to Notion
+
+database:
+  name: "Company Knowledge Base"
+  description: "Central repository for all company knowledge, processes, and documentation"
+  
+  properties:
+    title:
+      type: "title"
+      name: "Title"
+    
+    category:
+      type: "select"
+      name: "Category"
+      options:
+        - "Company"
+        - "Product" 
+        - "Engineering"
+        - "Design"
+        - "Marketing"
+        - "Operations"
+    
+    subcategory:
+      type: "select"
+      name: "Subcategory"
+      options:
+        # Company subcategories
+        - "Vision & Mission"
+        - "Strategy & Planning"
+        - "About & History"
+        - "Team & People"
+        
+        # Product subcategories
+        - "Product Strategy"
+        - "Core Features"
+        - "Product Management"
+        
+        # Engineering subcategories
+        - "Software Development"
+        - "Technical Infrastructure"
+        - "DevOps & Deployment"
+        
+        # Design subcategories
+        - "User Experience"
+        - "Visual Design"
+        - "Research & Insights"
+        
+        # Marketing subcategories
+        - "Brand & Messaging"
+        - "Growth & Acquisition"
+        - "Content & Communications"
+        
+        # Operations subcategories
+        - "Standard Operating Procedures"
+        - "Compliance & Legal"
+        - "Business Operations"
+    
+    department:
+      type: "multi_select"
+      name: "Department"
+      options:
+        - "Executive"
+        - "Product"
+        - "Engineering"
+        - "Design"
+        - "Marketing"
+        - "Operations"
+        - "Sales"
+        - "Customer Success"
+    
+    document_type:
+      type: "select"
+      name: "Document Type"
+      options:
+        - "Policy"
+        - "Process"
+        - "Meeting Notes"
+        - "Specification"
+        - "Template"
+        - "Guideline"
+        - "Research"
+        - "Strategy"
+        - "SOP"
+    
+    priority:
+      type: "select"
+      name: "Priority"
+      options:
+        - "High"
+        - "Medium"
+        - "Low"
+    
+    status:
+      type: "select"
+      name: "Status"
+      options:
+        - "Draft"
+        - "Review"
+        - "Approved"
+        - "Archived"
+    
+    last_updated:
+      type: "date"
+      name: "Last Updated"
+    
+    tags:
+      type: "multi_select"
+      name: "Tags"
+      options:
+        - "hipaa"
+        - "compliance"
+        - "api"
+        - "frontend"
+        - "backend"
+        - "mobile"
+        - "web"
+        - "security"
+        - "privacy"
+        - "ux"
+        - "ui"
+        - "research"
+        - "strategy"
+        - "process"
+        - "template"
+    
+    url:
+      type: "url"
+      name: "URL"
+
+# Knowledge base content structure
+content:
+  company:
+    vision_mission:
+      - title: "Company Vision Statement"
+        content: |
+          # Our Vision
+          
+          To revolutionize healthcare through technology that makes quality care accessible, affordable, and personalized for everyone.
+          
+          ## Core Values
+          - **Patient First**: Every decision prioritizes patient outcomes
+          - **Innovation**: We embrace cutting-edge technology responsibly
+          - **Transparency**: Open communication builds trust
+          - **Excellence**: We deliver world-class solutions
+          
+          ## Mission
+          
+          We're building the future of healthcare by creating intelligent, user-friendly platforms that connect patients with the care they need, when they need it.
+        category: "Company"
+        subcategory: "Vision & Mission"
+        department: ["Executive"]
+        document_type: "Strategy"
+        priority: "High"
+        status: "Approved"
+        tags: ["strategy", "vision"]
+      
+      - title: "Q4 2026 Strategic Objectives"
+        content: |
+          # Q4 2026 Strategic Objectives
+          
+          ## Key Results
+          1. **User Growth**: Achieve 50% increase in active users
+          2. **Product Launch**: Release mobile app beta to 1,000 users
+          3. **Compliance**: Complete HIPAA certification process
+          4. **Team**: Hire 3 senior engineers and 1 product manager
+          
+          ## Success Metrics
+          - Monthly Active Users: 10,000 → 15,000
+          - Customer Satisfaction: 4.5+ stars
+          - System Uptime: 99.9%
+          - Revenue Growth: 40% quarter-over-quarter
+        category: "Company"
+        subcategory: "Strategy & Planning"
+        department: ["Executive"]
+        document_type: "Strategy"
+        priority: "High"
+        status: "Approved"
+        tags: ["strategy", "okr", "planning"]
+
+  product:
+    product_strategy:
+      - title: "Product Roadmap 2026"
+        content: |
+          # Product Roadmap 2026
+          
+          ## Q4 2026
+          - **Mobile App Beta**: iOS and Android apps
+          - **AI Chatbot**: Patient support automation
+          - **Telehealth Integration**: Video consultation features
+          
+          ## Q1 2026
+          - **Wearable Integration**: Health data sync
+          - **Advanced Analytics**: Patient insights dashboard
+          - **Multi-language Support**: Spanish and French
+          
+          ## Q2 2026
+          - **Provider Network**: Expand to 50+ states
+          - **Insurance Integration**: Real-time eligibility
+          - **API Platform**: Third-party integrations
+        category: "Product"
+        subcategory: "Product Strategy"
+        department: ["Product"]
+        document_type: "Strategy"
+        priority: "High"
+        status: "Approved"
+        tags: ["roadmap", "strategy", "product"]
+      
+      - title: "User Research: Dashboard Usability"
+        content: |
+          # Dashboard Usability Research
+          
+          ## Research Overview
+          Conducted user interviews with 25 patients to understand dashboard usability issues.
+          
+          ## Key Findings
+          1. **Navigation**: 60% of users couldn't find appointment scheduling
+          2. **Information Hierarchy**: Health records were buried too deep
+          3. **Mobile Experience**: 80% of users primarily use mobile
+          
+          ## Recommendations
+          - Move appointment scheduling to top-level navigation
+          - Create dedicated health records section
+          - Prioritize mobile-first design
+          
+          ## Next Steps
+          - Create wireframes for new navigation
+          - Conduct A/B test with 100 users
+          - Implement changes by end of Q4
+        category: "Product"
+        subcategory: "Product Management"
+        department: ["Product", "Design"]
+        document_type: "Research"
+        priority: "Medium"
+        status: "Approved"
+        tags: ["research", "ux", "dashboard", "usability"]
+
+  engineering:
+    software_development:
+      - title: "API Rate Limiting Policy"
+        content: |
+          # API Rate Limiting Policy
+          
+          ## Rate Limits
+          - **Free Tier**: 100 requests/hour
+          - **Basic Plan**: 1,000 requests/hour
+          - **Pro Plan**: 10,000 requests/hour
+          - **Enterprise**: Custom limits
+          
+          ## Implementation
+          ```python
+          # Rate limiting middleware
+          from flask_limiter import Limiter
+          
+          limiter = Limiter(
+              app,
+              key_func=lambda: request.remote_addr,
+              default_limits=["100 per hour"]
+          )
+          ```
+          
+          ## Error Handling
+          - HTTP 429: Too Many Requests
+          - Retry-After header included
+          - Exponential backoff recommended
+        category: "Engineering"
+        subcategory: "Software Development"
+        department: ["Engineering"]
+        document_type: "Policy"
+        priority: "High"
+        status: "Approved"
+        tags: ["api", "backend", "policy", "rate-limiting"]
+      
+      - title: "Database Schema Design"
+        content: |
+          # Database Schema Design
+          
+          ## Core Tables
+          
+          ### Users
+          - id (UUID, Primary Key)
+          - email (VARCHAR, Unique)
+          - password_hash (VARCHAR)
+          - created_at (TIMESTAMP)
+          - updated_at (TIMESTAMP)
+          
+          ### Patients
+          - id (UUID, Primary Key)
+          - user_id (UUID, Foreign Key)
+          - first_name (VARCHAR)
+          - last_name (VARCHAR)
+          - date_of_birth (DATE)
+          - medical_record_number (VARCHAR, Unique)
+          
+          ### Appointments
+          - id (UUID, Primary Key)
+          - patient_id (UUID, Foreign Key)
+          - provider_id (UUID, Foreign Key)
+          - scheduled_at (TIMESTAMP)
+          - status (ENUM: scheduled, completed, cancelled)
+          
+          ## Indexes
+          - Users: email, created_at
+          - Patients: user_id, medical_record_number
+          - Appointments: patient_id, scheduled_at, status
+        category: "Engineering"
+        subcategory: "Technical Infrastructure"
+        department: ["Engineering"]
+        document_type: "Specification"
+        priority: "High"
+        status: "Approved"
+        tags: ["database", "schema", "backend", "infrastructure"]
+
+  operations:
+    compliance:
+      - title: "HIPAA Compliance Checklist"
+        content: |
+          # HIPAA Compliance Checklist
+          
+          ## Administrative Safeguards
+          - [ ] Designated HIPAA Security Officer
+          - [ ] Workforce training completed
+          - [ ] Access management procedures
+          - [ ] Incident response plan
+          
+          ## Physical Safeguards
+          - [ ] Workstation security controls
+          - [ ] Device and media controls
+          - [ ] Facility access controls
+          
+          ## Technical Safeguards
+          - [ ] Access control systems
+          - [ ] Audit controls implemented
+          - [ ] Data encryption at rest
+          - [ ] Data encryption in transit
+          - [ ] Automatic logoff enabled
+          
+          ## Business Associate Agreements
+          - [ ] Cloud hosting provider
+          - [ ] Email service provider
+          - [ ] Analytics provider
+          - [ ] Payment processor
+        category: "Operations"
+        subcategory: "Compliance & Legal"
+        department: ["Operations", "Engineering"]
+        document_type: "SOP"
+        priority: "High"
+        status: "Approved"
+        tags: ["hipaa", "compliance", "legal", "security"]
+      
+      - title: "Customer Support Escalation Procedure"
+        content: |
+          # Customer Support Escalation Procedure
+          
+          ## Level 1: Initial Response
+          - **Response Time**: 2 hours
+          - **Handled By**: Support Agent
+          - **Actions**: Basic troubleshooting, FAQ resolution
+          
+          ## Level 2: Technical Support
+          - **Response Time**: 4 hours
+          - **Handled By**: Senior Support Agent
+          - **Actions**: Advanced troubleshooting, bug investigation
+          
+          ## Level 3: Engineering
+          - **Response Time**: 8 hours
+          - **Handled By**: Engineering Team
+          - **Actions**: Code fixes, system issues
+          
+          ## Level 4: Executive
+          - **Response Time**: 24 hours
+          - **Handled By**: CTO/VP Engineering
+          - **Actions**: Critical issues, system outages
+          
+          ## Escalation Triggers
+          - Security incident
+          - Data breach
+          - System outage > 1 hour
+          - Customer threatening to churn
+        category: "Operations"
+        subcategory: "Standard Operating Procedures"
+        department: ["Operations", "Customer Success"]
+        document_type: "SOP"
+        priority: "High"
+        status: "Approved"
+        tags: ["support", "process", "escalation", "sop"]
