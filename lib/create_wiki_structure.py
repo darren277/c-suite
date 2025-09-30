@@ -364,7 +364,7 @@ This is your one-stop destination for everything related to our company. Use the
         parent_page = notion.pages.create(
             parent={"type": "page_id", "page_id": get_parent_page_id(notion)},
             properties={
-                "title": [{"text": {"content": "📚 Company Knowledge Base"}}]
+                "title": [{"text": {"content": "Company Knowledge Base"}}]
             }
         )
         
