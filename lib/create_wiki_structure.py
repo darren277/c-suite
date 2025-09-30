@@ -114,75 +114,23 @@ def create_master_wiki_page(notion, schema, parent_page_id):
 def add_database_views(notion, page_id, schema):
     """Add database views to the master Wiki page"""
     
-    # View 1: All Documents
+    # Note: Database views need to be created manually in Notion
+    # We'll add text blocks that explain how to add the views
     try:
         notion.blocks.children.append(
             block_id=page_id,
             children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": "📋 All Documents",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [{"type": "text", "text": {"content": "📋 To add database views, use the /database command and select your knowledge base database. Then configure the views as needed."}}]
                 }
             }]
         )
-        print("✅ Added 'All Documents' view")
+        print("✅ Added database view instructions")
     except Exception as e:
-        print(f"❌ Error adding 'All Documents' view: {e}")
-    
-    # View 2: High Priority
-    try:
-        notion.blocks.children.append(
-            block_id=page_id,
-            children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": "🔥 High Priority Documents",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
-                }
-            }]
-        )
-        print("✅ Added 'High Priority' view")
-    except Exception as e:
-        print(f"❌ Error adding 'High Priority' view: {e}")
-    
-    # View 3: Recently Updated
-    try:
-        notion.blocks.children.append(
-            block_id=page_id,
-            children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": "🕒 Recently Updated",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
-                }
-            }]
-        )
-        print("✅ Added 'Recently Updated' view")
-    except Exception as e:
-        print(f"❌ Error adding 'Recently Updated' view: {e}")
-    
-    # View 4: By Department
-    try:
-        notion.blocks.children.append(
-            block_id=page_id,
-            children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": "👥 By Department",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
-                }
-            }]
-        )
-        print("✅ Added 'By Department' view")
-    except Exception as e:
-        print(f"❌ Error adding 'By Department' view: {e}")
+        print(f"❌ Error adding database view instructions: {e}")
 
-def create_category_landing_pages(notion, schema):
+def create_category_landing_pages(notion, schema, parent_page_id):
     """Create landing pages for each category"""
     
     categories = {
@@ -300,53 +248,19 @@ def create_category_landing_pages(notion, schema):
 def add_category_database_views(notion, page_id, category):
     """Add category-specific database views"""
     
-    # All category documents
+    # Add instructions for adding database views
     try:
         notion.blocks.children.append(
             block_id=page_id,
             children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": f"All {category} Documents",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [{"type": "text", "text": {"content": f"📊 To add {category} database views, use the /database command and filter by Category = '{category}'"}}]
                 }
             }]
         )
     except Exception as e:
-        print(f"❌ Error adding category view for {category}: {e}")
-    
-    # High priority category documents
-    try:
-        notion.blocks.children.append(
-            block_id=page_id,
-            children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": f"High Priority {category}",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
-                }
-            }]
-        )
-    except Exception as e:
-        print(f"❌ Error adding high priority view for {category}: {e}")
-    
-    # Recently updated category documents
-    try:
-        notion.blocks.children.append(
-            block_id=page_id,
-            children=[{
-                "object": "block",
-                "type": "child_database",
-                "child_database": {
-                    "title": f"Recently Updated {category}",
-                    "database_id": NOTION_DOCUMENTATION_DB_ID
-                }
-            }]
-        )
-    except Exception as e:
-        print(f"❌ Error adding recently updated view for {category}: {e}")
+        print(f"❌ Error adding database view instructions for {category}: {e}")
 
 def get_parent_page_id(notion):
     """Get the parent page ID for creating new pages"""
@@ -415,6 +329,57 @@ def convert_markdown_to_blocks(content):
             })
     
     return blocks
+
+def create_wiki_parent_page(notion):
+    """Create a parent page to group all Wiki pages together"""
+    
+    parent_content = """# 📚 Company Knowledge Base
+
+> Central repository for all company knowledge, processes, and documentation
+
+This is your one-stop destination for everything related to our company. Use the navigation below to find what you need.
+
+## 🚀 Quick Access
+- [🏥 Company Wiki](./Company-Wiki) - Main Wiki hub
+- [📊 Knowledge Database](./Knowledge-Database) - Direct database access
+
+## 📁 Category Overview
+- [🏢 Company](./Company-Overview) - Vision, mission, strategy
+- [🚀 Product](./Product-Documentation) - Product strategy and features  
+- [⚙️ Engineering](./Engineering-Resources) - Technical documentation
+- [🎨 Design](./Design-Guidelines) - UX/UI standards and research
+- [📈 Marketing](./Marketing-Materials) - Brand and content guidelines
+- [📋 Operations](./Operations-Compliance) - SOPs and compliance
+
+---
+
+*This page serves as the central hub for all company knowledge. All Wiki pages are organized under this parent page for easy navigation.*
+"""
+    
+    # Convert to blocks
+    blocks = convert_markdown_to_blocks(parent_content)
+    
+    try:
+        # Create the parent page
+        parent_page = notion.pages.create(
+            parent={"type": "page_id", "page_id": get_parent_page_id(notion)},
+            properties={
+                "title": [{"text": {"content": "📚 Company Knowledge Base"}}]
+            }
+        )
+        
+        # Add content
+        notion.blocks.children.append(
+            block_id=parent_page['id'],
+            children=blocks
+        )
+        
+        print(f"✅ Created Wiki parent page: {parent_page['id']}")
+        return parent_page['id']
+        
+    except Exception as e:
+        print(f"❌ Error creating Wiki parent page: {e}")
+        return None
 
 def create_wiki_structure():
     """Main function to create the complete Wiki structure"""
