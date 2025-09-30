@@ -7,6 +7,12 @@ create-kb:
 create-kb-linux:
 	$(VENV_PATH)/bin/python3 lib/create_knowledge_base.py
 
+create-wiki:
+	$(VENV_PATH)/Scripts/python.exe lib/create_wiki_structure.py
+
+create-wiki-linux:
+	$(VENV_PATH)/bin/python3 lib/create_wiki_structure.py
+
 sync-notion:
 	$(VENV_PATH)/Scripts/python.exe lib/sync_notion.py
 
@@ -31,6 +37,7 @@ migrate-linux:
 help:
 	@echo "Available commands:"
 	@echo "  create-kb     - Create knowledge base from knowledge_base.yaml"
+	@echo "  create-wiki   - Create hierarchical Wiki structure in Notion"
 	@echo "  sync-notion   - Sync existing Notion content to ChromaDB"
 	@echo "  run          - Start the Slack bot"
 	@echo "  migrate      - Test ChromaDB migration"

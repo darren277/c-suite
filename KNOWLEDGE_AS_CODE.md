@@ -32,13 +32,19 @@ cp .env.example .env
 make create-kb
 ```
 
-### 3. Sync to ChromaDB
+### 3. Create Wiki structure
+```bash
+# Create hierarchical Wiki with navigation and views
+make create-wiki
+```
+
+### 4. Sync to ChromaDB
 ```bash
 # Sync Notion content to vector database
 make sync-notion
 ```
 
-### 4. Start the bot
+### 5. Start the bot
 ```bash
 # Run the Slack bot
 make run
@@ -98,6 +104,7 @@ The `knowledge_base.yaml` file has two main sections:
 ```bash
 make help              # Show all available commands
 make create-kb         # Create knowledge base from YAML
+make create-wiki       # Create hierarchical Wiki structure
 make sync-notion       # Sync Notion content to ChromaDB
 make run              # Start the Slack bot
 make migrate          # Test ChromaDB migration
