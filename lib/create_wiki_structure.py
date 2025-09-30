@@ -18,7 +18,7 @@ def load_knowledge_schema():
     with open('knowledge_base.yaml', 'r', encoding='utf-8') as file:
         return yaml.safe_load(file)
 
-def create_master_wiki_page(notion, schema):
+def create_master_wiki_page(notion, schema, parent_page_id):
     """Create the master Wiki page with navigation and database views"""
     
     # Master Wiki page content
@@ -89,9 +89,9 @@ def create_master_wiki_page(notion, schema):
     # Create the master Wiki page
     try:
         page = notion.pages.create(
-            parent={"type": "page_id", "page_id": get_parent_page_id(notion)},
+            parent={"type": "page_id", "page_id": parent_page_id},
             properties={
-                "title": [{"text": {"content": "🏥 Company Wiki"}}]
+                "title": [{"text": {"content": "Company Wiki"}}]
             }
         )
         
@@ -274,7 +274,7 @@ def create_category_landing_pages(notion, schema):
         try:
             # Create the category page
             page = notion.pages.create(
-                parent={"type": "page_id", "page_id": get_parent_page_id(notion)},
+                parent={"type": "page_id", "page_id": parent_page_id},
                 properties={
                     "title": [{"text": {"content": page_name}}]
                 }
@@ -436,18 +436,26 @@ def create_wiki_structure():
         print(f"❌ Error connecting to Notion: {e}")
         return
     
+    # Create Wiki parent page
+    print("\nCreating Wiki parent page...")
+    parent_page_id = create_wiki_parent_page(notion)
+    if not parent_page_id:
+        print("❌ Failed to create Wiki parent page")
+        return
+    
     # Create master Wiki page
     print("\nCreating master Wiki page...")
-    master_page_id = create_master_wiki_page(notion, schema)
+    master_page_id = create_master_wiki_page(notion, schema, parent_page_id)
     if not master_page_id:
         print("❌ Failed to create master Wiki page")
         return
     
     # Create category landing pages
     print("\nCreating category landing pages...")
-    category_pages = create_category_landing_pages(notion, schema)
+    category_pages = create_category_landing_pages(notion, schema, parent_page_id)
     
     print("\nWiki structure creation complete!")
+    print(f"Parent page: {parent_page_id}")
     print(f"Master Wiki page: {master_page_id}")
     print(f"Category pages created: {len(category_pages)}")
     
