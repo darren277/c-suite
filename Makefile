@@ -2,30 +2,30 @@ include .env
 
 # Knowledge Base Management
 create-kb:
-	.venv/Scripts/python.exe lib/create_knowledge_base.py
+	$(VENV_PATH)/Scripts/python.exe lib/create_knowledge_base.py
 
 create-kb-linux:
-	.venv/bin/python3 lib/create_knowledge_base.py
+	$(VENV_PATH)/bin/python3 lib/create_knowledge_base.py
 
 sync-notion:
-	.venv/Scripts/python.exe lib/sync_notion.py
+	$(VENV_PATH)/Scripts/python.exe lib/sync_notion.py
 
 sync-notion-linux:
-	.venv/bin/python3 lib/sync_notion.py
+	$(VENV_PATH)/bin/python3 lib/sync_notion.py
 
 # Application
 run:
-	.venv/Scripts/python.exe main.py
+	$(VENV_PATH)/Scripts/python.exe main.py
 
 run-linux:
-	.venv/bin/python3 main.py
+	$(VENV_PATH)/bin/python3 main.py
 
 # Migration
 migrate:
-	.venv/Scripts/python.exe migrate.py
+	$(VENV_PATH)/Scripts/python.exe migrate.py
 
 migrate-linux:
-	.venv/bin/python3 migrate.py
+	$(VENV_PATH)/bin/python3 migrate.py
 
 # Help
 help:
