@@ -10,6 +10,9 @@ SLACK_APP_TOKEN = os.environ.get("SLACK_APP_TOKEN")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 NOTION_API_TOKEN = os.environ.get("NOTION_API_TOKEN")
 NOTION_DATABASE_ID = os.environ.get("NOTION_DATABASE_ID")
+
+CHROMA_TENANT = os.environ.get("CHROMA_TENANT", "default_tenant")
+CHROMA_API_KEY = os.environ.get("CHROMA_API_KEY", "default_chroma_api_key")
 CHROMA_DB_PATH = "./notion_db" # Path to store ChromaDB data
 CHROMA_COLLECTION_NAME = "notion-knowledge-base"
 
