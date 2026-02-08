@@ -123,5 +123,13 @@ def handle_app_mention_events(body, client, say, logger):
 
 # --- Start the App ---
 if __name__ == "__main__":
+    # 1. Start the health check server in a daemon thread
+    # Daemon means it will automatically close when the main program closes
+    health_thread = threading.Thread(target=run_health_server)
+    health_thread.daemon = True
+    health_thread.start()
+    
+    print("Health check running on port 3000...")
+
     handler = SocketModeHandler(app, SLACK_APP_TOKEN)
     handler.start()
