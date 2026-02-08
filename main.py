@@ -1,5 +1,7 @@
 import re
 import openai
+import threading
+from flask import Flask, jsonify
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from settings import GPT_MODEL, OPENAI_API_KEY, PERSONAS, SLACK_BOT_TOKEN, SLACK_APP_TOKEN
@@ -7,6 +9,20 @@ from settings import GPT_MODEL, OPENAI_API_KEY, PERSONAS, SLACK_BOT_TOKEN, SLACK
 # --- Initialization ---
 app = App(token=SLACK_BOT_TOKEN)
 openai.api_key = OPENAI_API_KEY
+
+
+# --- HEALTH CHECK SERVER SETUP ---
+health_app = Flask(__name__)
+
+@health_app.route('/health')
+def health_check():
+    # You could add logic here to check if the SocketHandler is actually connected
+    # But for now, just proving the process is alive is a huge step up.
+    return jsonify({"status": "ok", "service": "slack-bot"}), 200
+
+def run_health_server():
+    # Run on port 3000 (or any internal port you like)
+    health_app.run(host='0.0.0.0', port=3000, debug=False, use_reloader=False)
 
 
 # --- Placeholder for your RAG logic ---
