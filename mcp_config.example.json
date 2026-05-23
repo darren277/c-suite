@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "evidence_based_tooling": {
+        "url": "https://mcp.arsmedicatech.com/mcp"
+    },
+    "fhir": {
+        "url": "https://fhirmcp.arsmedicatech.com/mcp"
+    },
+    "coaching_mcp": {
+        "url": "https://coaching.synapticl.com/mcp"
+    }
+  }
+}

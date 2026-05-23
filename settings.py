@@ -60,3 +60,6 @@ def utility_for_validating_env_vars():
     print("All required environment variables are set correctly.")
 
 utility_for_validating_env_vars()
+
+
+mcp_config = json.loads(open("mcp_config.json").read())

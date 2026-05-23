@@ -6,6 +6,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./personas.json .
+COPY ./mcp_config.json .
 COPY ./knowledge_base.yaml .
 
 COPY ./lib ./lib

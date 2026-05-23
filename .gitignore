@@ -6,6 +6,7 @@
 __pycache__/
 
 personas.json
+mcp_config.json
 
 .idea/
 
