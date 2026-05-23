@@ -1,4 +1,5 @@
 import re
+from lib.amt import call_llm_chat_with_custom_mcp
 import openai
 import threading
 from flask import Flask, jsonify
@@ -29,6 +30,8 @@ def run_health_server():
 def retrieve_from_knowledge_base(query: str) -> str:
     """
     Searches your knowledge base (e.g., a vector database) and returns relevant context.
+    :param query: The user's query to search for.
+    :return: A string of relevant context to include in the prompt.
     """
     print(f"Searching knowledge base for: {query}")
     # In a real app, this would query something like Pinecone, ChromaDB, etc.
@@ -39,7 +42,17 @@ def retrieve_from_knowledge_base(query: str) -> str:
 
 # --- Slack Event Listener ---
 @app.event("app_mention")
-def handle_app_mention_events(body, client, say, logger):
+def handle_app_mention_events(body, client, say, logger, use_amt: bool = USE_AMT) -> None:
+    """
+    Docstring for handle_app_mention_events
+    
+    :param body: The event payload from Slack, which includes details about the message, user, channel, etc.
+    :param client: The Slack WebClient instance used to interact with the Slack API.
+    :param say: A function to send messages back to the Slack channel.
+    :param logger: Logger instance for logging information and errors.
+    :param use_amt: Whether to use the ArsMedicaTech API for retrieval (if False, uses local dummy logic).
+    :type use_amt: bool
+    """
     event = body['event']
     channel_id = event['channel']
     thread_ts = event.get('thread_ts', event['ts'])
@@ -97,6 +110,11 @@ def handle_app_mention_events(body, client, say, logger):
             Based on all of this, please answer my latest question: "{clean_query}"
             """}
         ]
+
+        if use_amt:
+            # If using the ArsMedicaTech API, we would call it here instead of openai directly
+            # response = call_your_system(prompt=messages_for_api, api_key=AMT_API_KEY)
+            call_llm_chat_with_custom_mcp(prompt=messages_for_api) # This will call the AMT API with the custom MCP config
         
         response = openai.chat.completions.create(
             model=GPT_MODEL,

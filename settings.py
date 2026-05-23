@@ -63,3 +63,13 @@ utility_for_validating_env_vars()
 
 
 mcp_config = json.loads(open("mcp_config.json").read())
+
+
+AMT_API_URL = os.getenv("AMT_API_URL", "http://localhost:3123")
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+AMT_API_KEY = os.getenv("AMT_API_KEY")
+
+# http://localhost:3123/api/debug/session_v2
+SESSION_TOKEN = os.getenv("SESSION_TOKEN")
