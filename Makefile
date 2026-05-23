@@ -68,7 +68,7 @@ SLACK_SECRETS=--from-literal=C_SUITE_SLACK_BOT_TOKEN=$(SLACK_BOT_TOKEN) --from-l
 SECRETS=$(SLACK_SECRETS) $(NOTION_SECRETS) $(CHROMA_SECRETS) $(OPENAI_SECRET)
 
 secrets:
-	kubectl create secret generic app-secrets --namespace $(NAMESPACE) $(SECRETS)
+	kubectl create secret generic csuite-app-secrets --namespace $(NAMESPACE) $(SECRETS)
 
 update-secrets:
-	kubectl create secret generic app-secrets --namespace $(NAMESPACE) $(SECRETS) --dry-run=client -o yaml | kubectl apply -f -
+	kubectl create secret generic csuite-app-secrets --namespace $(NAMESPACE) $(SECRETS) --dry-run=client -o yaml | kubectl apply -f -
